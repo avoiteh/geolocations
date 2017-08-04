@@ -1,0 +1,21 @@
+<html>
+   <head>
+      <script src = "..\node_modules\angular\angular.min.js"></script>
+   </head>
+   
+   <body ng-app = "geoLocations">
+      <script>
+      angular.module('geoLocations', ['ngRoute'])
+        .config( ['$routeProvider', function($routeProvider) {
+          $routeProvider
+            .when('/geolocation/:geoId', {
+              templateUrl: 'template/geolocation.html'
+            })
+            .otherwise({
+              redirectTo: '/'
+            });
+      }]);
+      </script>
+      
+   </body>
+</html>
