@@ -31,63 +31,66 @@
         </div>
       </div>
       
-      <div class="row" style="overflow:auto; max-height:600px !important; height:1 px; border:#000 1px solid;">
-      <script type="text/ng-template" id="nodes_renderer.html">
-         <div style="padding-left:20px !important;"><input type="checkbox" ng-model="item.check"> {{item.text}}
-          <div ng-model="item.nodes">
-            <div ng-repeat="item in item.nodes" ng-include="'nodes_renderer.html'"></div>
-          </div>
-        </div>
-        </div>
+<!-- max-height:600px !important; height:1 px; -->
+
+      <!-- <script type="text/ng-template" id="nodes_renderer.html">
+	<div ui-tree-handle class="tree-node tree-node-content">
+		<a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
+        class="glyphicon"
+        ng-class="{
+          'glyphicon-chevron-right': nodes.collapsed,
+          'glyphicon-chevron-down': !nodes.collapsed
+        }"></span></a>
+		<input type="checkbox" ng-model="node.check"> {{node.text}}
+	</div>
+<ul ui-tree-nodes ng-model="node.nodes" ng-class="{hidden: nodes.collapsed}">
+    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+    </li>
+  </ul>
       </script>
 
-          <div style="overflow: scroll; max-height:600px; height:1 px; border:#000 1px solid;">
-          <div ng-model="geolocationPointTree">
-            <div ng-repeat="item in geolocationPointTree" ng-include="'nodes_renderer.html'"></div>
-          </div>
-          
-          
-          
-      
-      
-        <!--
-        <script type="text/ng-template" id="nodes_renderer.html">
-            <div ui-nested-sortable-handle>
-              <input type="checkbox">
-              {{item.text}}
-            </div>
-        <ol ui-nested-sortable="options" ng-model="item.nodes">
-              <li ng-repeat="item in item.nodes" ui-nested-sortable-item="" ng-include="'nodes_renderer.html'">
-              </li>
-            </ol>
-          </script>
-          
-          <ol ui-nested-sortable="options" ng-model="geolocationPointTree">
-            <li ng-repeat="item in geolocationPointTree" ui-nested-sortable-item="" ng-include="'nodes_renderer.html'"></li>
-          </ol>
-        
-        
-        <div ui-nested-sortable-handle class="well well-sm">
-              <input type="checkbox">
-              {{item.text}}
-            </div>
-        <ol ui-nested-sortable="options" ng-model="item.nodes">
-              <li ng-repeat="item in item.nodes" ui-nested-sortable-item="" ng-include="'nodes_renderer.html'">
-              </li>
-            </ol>
-          </script>
 
-          <ol ui-nested-sortable="options" ng-model="geolocationPointTree">
-            <li ng-repeat="item in geolocationPointTree" ui-nested-sortable-item="" ng-include="'nodes_renderer.html'"></li>
-          </ol>
-        
-        
-        
-        
 
-</div>-->
-        <!--<div id="treeview1" class="" style="height:600 px;overflow-y:scroll;"></div>-->
-      </div>
+
+<div class="row" style="overflow:auto; max-height:600px !important; height:1 px; border:#000 1px solid;">
+
+      	<ul ui-tree-nodes ng-model="geolocationPointTree">
+		<li ui-tree-node ng-repeat="node in geolocationPointTree" ng-include="'nodes_renderer.html'"></li>
+        </ul>
+      
+      </div> -->
+
+
+
+
+
+
+
+      <script type="text/ng-template" id="nodes_renderer.html">
+	<div my-test class="tree-node tree-node-content">
+		<a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
+        class="glyphicon"
+        ng-class="{
+          'glyphicon-chevron-right': nodes.collapsed,
+          'glyphicon-chevron-down': !nodes.collapsed
+        }"></span></a>
+		<input type="checkbox" ng-model="node.check"> {{node.text}}
+	</div>
+<ul myTest ng-model="node.nodes" ng-class="{hidden: nodes.collapsed}">
+    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+    </li>
+  </ul>
+      </script>
+
+
+
+
+<div class="row" style="overflow:auto; max-height:600px !important; height:1 px; border:#000 1px solid;">
+
+      	<ul ui-tree-nodes ng-model="geolocationPointTree">
+		<li ui-tree-node ng-repeat="node in geolocationPointTree" ng-include="'nodes_renderer.html'"></li>
+        </ul>
+      
       </div>
     </div>
     
@@ -129,38 +132,12 @@
       
       
       
-      
-      
-      
-      
-      <!--
-      
-        <ul class="list-group" ng-repeat="onelocation in geolocationList">
-          <li class="list-group-item well">
-            <div class="row">
-              <div class="col-md-11">
-                <h4>{{onelocation.text}}</h4>
-                <small>Избранное / Избранное</small>
-              </div>
-             <div class="col-md-1 glyphicon glyphicon-remove">
-             </div>
-            </div>
-          </li>
-        </ul>
-        -->
+
        
 
     </div>
   </div>
        
-
-         
-          
-          
-          
-          <div class="info">
-            {{info}}
-          </div>
 
 
        

@@ -2,24 +2,28 @@
 "id": "1",
 "text": "Parent 1",
 "check": true,
+"expand": true,
 "tags": ["4"],
 "nodes": [
   {
   "id": "2",
   "text": "Child 1",
   "check": false,
+  "collapsed": true,
   "tags": ["2"],
   "nodes": [
     {
     "id": "3",
     "text": "Grandchild 1",
     "check": false,
+    "collapsed": true,
     "tags": ["0"]
     },
     {
     "id": "4",
     "text": "Grandchild 2",
     "check": true,
+    "collapsed": true,
     "tags": ["0"]
     }
   ]
@@ -28,6 +32,7 @@
   "id": "5",
   "text": "Child 2",
   "check": false,
+  "collapsed": true,
   "tags": ["0"]
   }
 ]
@@ -36,23 +41,27 @@
 "id": "6",
 "text": "Parent 2",
 "check": false,
+"collapsed": true,
 "tags": ["0"]
 },
 {
 "id": "7",
 "text": "Parent 3",
 "check": false,
+"collapsed": true,
 "tags": ["0"]
 },
 {
 "id": "8",
 "text": "Parent 4",
 "check": false,
+"collapsed": true,
 "tags": ["0"]
 },
 {
 "id": "9",
 "text": "Parent 5",
 "check": false  ,
+"collapsed": true,
 "tags": ["0"]
 }]

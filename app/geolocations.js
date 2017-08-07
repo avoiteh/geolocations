@@ -1,7 +1,7 @@
 'use strict';
 
 // declare a module
-var mainGeolocations = angular.module('geolocations', ["ngRoute", 'ui.nestedSortable']);
+var mainGeolocations = angular.module('geolocations', ['ngRoute']);
 
 mainGeolocations.config( ['$routeProvider', function($routeProvider) {
    $routeProvider.when('/geolocation/:geoLocationId',
@@ -25,14 +25,19 @@ mainGeolocations.controller("GeolocationController", function ($scope, $http) {
       //сформировать линейное отражение!
   });
   
-  $http({method: 'GET', url: 'server_api/geolocationlist.json'}).
-    then(function success(response) {
-      $scope.geolocationList=response.data;
-      
-  });
-
   $scope.checkFilter = function(item){
     return item.check;
   }
+
+  $scope.toggle = function(scope){
+	
+  }
 });
 
+mainGeolocations.directive('myTest', function () {
+	return function (scope, element, attrs) {
+		console.log(scope);
+		console.log(element);
+		console.log(attrs);
+	}
+});
