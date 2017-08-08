@@ -64,11 +64,11 @@
 
 
 
-
+<!--
 
       <script type="text/ng-template" id="nodes_renderer.html">
-	<div my-test class="tree-node tree-node-content">
-		<a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
+	<div my-test class="tree-node tree-node-content" collapsed="" ng-click="toggle(this)">
+		<a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag><span
         class="glyphicon"
         ng-class="{
           'glyphicon-chevron-right': nodes.collapsed,
@@ -85,14 +85,40 @@
 
 
 
-<div class="row" style="overflow:auto; max-height:600px !important; height:1 px; border:#000 1px solid;">
+<div class="row" style="overflow:scroll; max-height:600px !important; height:1 px; border:#000 1px solid;">
 
       	<ul ui-tree-nodes ng-model="geolocationPointTree">
 		<li ui-tree-node ng-repeat="node in geolocationPointTree" ng-include="'nodes_renderer.html'"></li>
         </ul>
       
       </div>
+    </div>-->
+    <div style="overflow-y:scroll; overflow-x:hidden !important; height:400px !important;">
+    <div class="row">
+    
+      <ul my-treeview class="list-group">
+        <li ng-repeat="item in items" my-treeview-childs="item.nodes" class="list-group-item">
+            <span ng-class="{ bold: item.id % 2}">
+            <a ng-click="toggle(item)" class="btn btn-success btn-xs" ng-if="item.nodes && item.nodes.length > 0" data-nodrag>
+             <span class="glyphicon"
+              ng-class="{
+                'glyphicon-chevron-right': item.collapsed,
+                'glyphicon-chevron-down': !item.collapsed
+              }"></span>
+            </a>
+
+            <span class="glyphicon"
+              ng-class="{
+                'glyphicon glyphicon-check': item.check,
+                'glyphicon glyphicon-unchecked': !item.check
+              }" style="font-size:20px;" ng-click="toggleCheck(item)"></span>
+            {{item.text}}</span>
+          </li>
+      </ul>
     </div>
+    </div>
+    
+</div>
     
     <div class="col-md-1"></div>
     
@@ -110,12 +136,12 @@
       
       <script type="text/ng-template" id="checked_renderer.html">
       
-        <div class="row well" ng-show="item.check">
-          <div class="col-md-11">
+        <div ng-if="item.check" class="row" ng-show="item.check">
+          <div class="col-md-11 well">
             <h4>{{item.text}}</h4>
             <small>{{item.text}} / Избранное</small>
           </div>
-          <div class="col-md-1 glyphicon glyphicon-remove"></div>
+          <div class="col-md-1"></div>
         </div>
         
         <div ng-model="item.nodes">
@@ -124,8 +150,9 @@
         </div>
       </script>
 
-          <div ng-model="geolocationPointTree">
-            <div ng-repeat="item in geolocationPointTree | filter:checkFilter" ng-include="'checked_renderer.html'"></div>
+<!--          <div ng-model="geolocationPointTree">-->
+          <div ng-model="items">
+            <div ng-repeat="item in items" ng-include="'checked_renderer.html'"></div>
           </div>
       
       
