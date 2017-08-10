@@ -63,16 +63,18 @@ export class geoPointsTreeViewDirective implements OnChanges {
  	//let Search : string = '';
  	let subHtml='';
  	if(typeof nodes === "object" && nodes.length > 0){
- 	 	html+='<ul>';
+ 	 	html+='<ul style="list-style-type: none;">';
  	 	for(let i in nodes){
  	 		subHtml = this.drawTree(nodes[i].nodes);
  	 		if(nodes[i].text.toLowerCase().indexOf(this.pointService.Search.toLowerCase()) > -1 || 
  	 			subHtml != ''){
- 	 			html += '<li>';
+ 	 			html += '<li>';// class="well well-sm"
         if(subHtml!=''){
           html+='<a class="btn btn-success btn-xs"><span class="glyphicon '+(nodes[i].collapsed ? 'glyphicon-chevron-right':'glyphicon-chevron-down')+'" treetype="collapse" nodeId="'+nodes[i].id+'"></span></a>';
         }
-        html += '<input type="checkbox" treetype="check" nodeId="'+nodes[i].id+'" '+(nodes[i].check ? 'checked':'')+'>'+nodes[i].text+'</li>';
+        html += '<span treetype="check" nodeId="'+nodes[i].id+'" class="glyphicon '+(nodes[i].check ? 'glyphicon-check':'glyphicon-unchecked')+' " style="font-size:20px;"></span>';
+        //html += '<input type="checkbox" treetype="check" nodeId="'+nodes[i].id+'" '+(nodes[i].check ? 'checked':'')+'>';
+        html += nodes[i].text+'</li>';
         if(!nodes[i].collapsed){
  	 				html += subHtml;
  	 			}
