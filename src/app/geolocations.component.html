@@ -1,0 +1,37 @@
+<div>
+	<div class="row">
+		<div class="col-md-2">Название:*</div>
+    	<div class="col-md-10"><input class="form-control" type="text" id="geolocationTitle" [(ngModel)]="pointService.geolocationTitle"></div>
+	</div>
+	<div class="row">
+    	<div class="col-md-2">По умолчанию:</div>
+    	<div class="col-md-10"><input type="checkbox" id="geolocationIsDefault" [(ngModel)]="pointService.geolocationIsDefault"></div>
+  	</div>
+
+  	<div class="row">
+    	<div class="col-md-5">
+      		<div class="row"><h4>Выбор гео-объекта:</h4></div>
+      			<div class="row">
+        			<div class="input-group">
+			          <label class="sr-only" for="searchInput">Search</label>
+			          <input class="form-control" type="text" [value]="pointService.Search" (input) = "changeSearch($event.target.value);" placeholder="Search" >
+			          <div class="input-group-btn">
+			          	<button type="button" class="btn btn-primary glyphicon glyphicon-search"></button>
+			          </div>
+        		</div>
+        		<div class="row">
+        			<geo-points-tree-view  [Search]="pointService.Search"></geo-points-tree-view>
+        		</div>
+      		</div>
+      	</div>
+
+      	<div class="col-md-1"></div>
+        <div class="col-md-6">
+      		<div class="row"><h4>Привязанные гео-объекты:</h4></div>
+      		<div class="row">
+           		<attached-geo-objects  [flagChange]="pointService.flagChange"></attached-geo-objects>
+	    	</div>
+        </div>
+    </div>
+</div>
+<hr>
