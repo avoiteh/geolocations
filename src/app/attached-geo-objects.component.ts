@@ -25,20 +25,19 @@ export class attachedGeoObjects implements OnChanges {
  }
 
  refresh(){
-  this.elementRef.nativeElement.innerHTML = this.drawList(this.pointService.getData());
+  this.elementRef.nativeElement.innerHTML = this.drawList(this.pointService.getData(), '');
  }
 
- drawList(nodes){
-    console.log('attachedGeoObjects.drawList');
- 	let html : string = '';
+ drawList(nodes, path){
+  let html : string = '';
  	//втыкаем временный костыль фильтра
  	//let Search : string = '';
  	if(typeof nodes === "object" && nodes.length > 0){
  	 	for(let i in nodes){
  	 		if(nodes[i].check){
- 	 			html += '<div class="row"><div class="col-md-11 well"><h4>'+nodes[i].text+'</h4><small>'+nodes[i].text+' / Избранное</small></div><div class="col-md-1"></div></div>';
+ 	 			html += '<div class="row"><div class="col-md-11 well"><h4>'+nodes[i].text+'</h4><small>'+path+ (path=='' ? '' : ' / ') + nodes[i].text+'</small></div><div class="col-md-1"></div></div>';
  	 		}
-        	html += this.drawList(nodes[i].nodes);
+        	html += this.drawList(nodes[i].nodes, path+(path=='' ? '' : ' / ')+nodes[i].text);
  	 	}
  	}
  	return html;

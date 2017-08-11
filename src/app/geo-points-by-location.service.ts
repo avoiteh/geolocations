@@ -51,6 +51,5 @@ export class PointService{
     toggleCollapsed(id:number){
         let collapsed = this.getNodeById(id).collapsed;
         this.nodeById.collapsed = !collapsed;
-        console.log(this.nodeById);
     }
 }
