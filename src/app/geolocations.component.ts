@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Directive, Input, HostListener, TemplateRef, ViewContainerRef, Renderer, ElementRef, SimpleChanges, OnChanges } from '@angular/core';
+import { Directive, Input, HostListener, SimpleChanges, OnChanges } from '@angular/core';
 import { PointService } from './geo-points-by-location.service';
 
 @Component({
@@ -11,6 +11,8 @@ import { PointService } from './geo-points-by-location.service';
 export class GeolocationsComponent {
 
   private pointService: PointService;
+  
+
   constructor(private _pointService: PointService) { 
   	this.pointService = _pointService;
   }
@@ -22,82 +24,53 @@ export class GeolocationsComponent {
 
 @Component({
 	selector: 'geo-points-tree-view',
-	template: `<div></div>`
+	template: `<ul>
+  <li *ngFor="let node of pointService.getData() | parent: parent">
+    <a class="btn btn-success btn-xs" *ngIf="node.expand">
+      <span class="glyphicon" [ngClass]="{
+        'glyphicon-chevron-right': node.collapsed,
+        'glyphicon-chevron-down': !node.collapsed
+      }" (click)="onClickCollapse(node.id)"></span>
+    </a>
+    <span treetype="check" nodeId="node.id" class="glyphicon" [ngClass]="{
+      'glyphicon-check': node.check,
+      'glyphicon-unchecked': !node.check
+    }" style="font-size:20px;"
+    (click)="onClickCheck(node.id)"></span>
+    {{node.text}}
+    <geo-points-tree-view *ngIf="!node.collapsed" [Search]="pointService.Search" [parent]="node.id"></geo-points-tree-view>
+  </li>
+</ul>`
 })
-export class geoPointsTreeViewDirective implements OnChanges {
-  private elementRef: ElementRef;
+
+export class geoPointsTreeViewDirective implements OnChanges {//.tick()
   private pointService: PointService;
 
-  constructor(private _elementRef: ElementRef, 
-              private _renderer: Renderer,
-              private _pointService: PointService) {
+  constructor(private _pointService: PointService) {
     this.pointService = _pointService;
-    this.elementRef = _elementRef;
   }
 
   @Input() Search: string;
+  @Input() parent: string;
 
+  // @Input()
+  //   set Search(Search:string){
+  //     this.Search = Search;
+  //   }
  ngOnChanges(changes: SimpleChanges) {
-    this.refresh();
+  console.log(changes.Search.currentValue);
  }
 
  @HostListener('click', ['$event.target'])
- onClick(event) {
-    if(event.getAttribute("treetype")=='collapse'){
-      this.pointService.toggleCollapsed(event.getAttribute("nodeid"));
-    }
-    if(event.getAttribute("treetype")=='check'){
-      this.pointService.toggleCheck(event.getAttribute("nodeid"));
-      this.pointService.flagChange = !this.pointService.flagChange;
-    }
-    this.refresh();
+ onClickCollapse(id: number){
+  this.pointService.toggleCollapsed(id);
+ }
+ onClickCheck(id: number){
+  this.pointService.toggleCheck(id);
  }
 
- refresh(){
-  let newNodes=this.filterTree(this.pointService.getData(), this.pointService.Search);
-  console.log(newNodes);
-  this.elementRef.nativeElement.innerHTML = this.drawTree(newNodes);
- }
-
- drawTree(nodes){
- 	let html : string = '';
- 	//втыкаем временный костыль фильтра
- 	//let Search : string = '';
- 	let subHtml='';
- 	if(typeof nodes === "object" && nodes.length > 0){
-    let inner_html='';
- 	 	for(let i in nodes){
- 	 		subHtml = this.drawTree(nodes[i].nodes);
-
- 	 			inner_html += '<li>';// class="well well-sm"
-        if(subHtml!=''){
-          inner_html+='<a class="btn btn-success btn-xs"><span class="glyphicon '+(nodes[i].collapsed ? 'glyphicon-chevron-right':'glyphicon-chevron-down')+'" treetype="collapse" nodeId="'+nodes[i].id+'"></span></a>';
-        }
-        inner_html += '<span treetype="check" nodeId="'+nodes[i].id+'" class="glyphicon '+(nodes[i].check ? 'glyphicon-check':'glyphicon-unchecked')+' " style="font-size:20px;"></span>';
-        inner_html += nodes[i].text+'</li>';
-        if(!nodes[i].collapsed){
- 	 				inner_html += subHtml;
- 	 			}
-
- 	 	}
-    if(inner_html != ''){
-      html+='<ul style="list-style-type: none;">'+inner_html+'</ul>';
-    }
- 	}
- 	return html;
- }
-
-
- filterTree(nodes, Search){
-  let newNodes=[];
-  let j=0;
-  for(let i in nodes){
-    let items=this.filterTree(nodes[i].nodes, Search);
-    if(items.length > 0 || nodes[i].text.toLowerCase().indexOf(Search.toLowerCase()) > -1 ){
-      newNodes[j]={"id":nodes[i].id, "text":nodes[i].text,"check":nodes[i].check,"collapsed":nodes[i].collapsed,"nodes":items};
-      j++;
-    }
-  }
-  return newNodes;
- }
+ // refresh(){
+ //  // this.elementRef.nativeElement.innerHTML = this.drawTree(this.pointService.getData(), parent);
+ //  this.Nodes = this.pointService.getData();
+ // }
 }

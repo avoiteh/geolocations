@@ -20,7 +20,7 @@
 			          </div>
         		</div>
         		<div class="row">
-        			<geo-points-tree-view  [Search]="pointService.Search"></geo-points-tree-view>
+        			<geo-points-tree-view [Search]="pointService.Search" [parent]="0"></geo-points-tree-view>
         		</div>
       		</div>
       	</div>
@@ -29,7 +29,7 @@
         <div class="col-md-6">
       		<div class="row"><h4>Привязанные гео-объекты:</h4></div>
       		<div class="row">
-           		<attached-geo-objects  [flagChange]="pointService.flagChange"></attached-geo-objects>
+           		<attached-geo-objects></attached-geo-objects>
 	    	  </div>
         </div>
     </div>
